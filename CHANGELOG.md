@@ -1,3 +1,23 @@
+## [0.0.7] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
+## [0.0.6] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
+## [0.0.5] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
+## [0.0.4] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
 ## [0.0.3] - 2025-11-06
 ### Fixed
 - Addressed pub.dev validation issues.
