@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// A controller to manage focus and selection state for the multi-select widget.
 class MsController {
   final FocusNode focusNode = FocusNode();
 
-  ms_class? selectedSingle;
-  List<ms_class> selectedMulti = [];
-
+  MsClass? selectedSingle;
+  List<MsClass> selectedMulti = [];
 
   void requestFocus() => focusNode.requestFocus();
   void unfocus() => focusNode.unfocus();
   void dispose() => focusNode.dispose();
 
-    bool get isSelected =>
-      selectedSingle != null || selectedMulti.isNotEmpty;
-
+  bool get isSelected => selectedSingle != null || selectedMulti.isNotEmpty;
 }
 
-class ms_class {
+class MsClass {
   final String prefixCode;
   final String name;
   final String suffixCode;
 
-  ms_class({required this.prefixCode, required this.name, required this.suffixCode});
+  MsClass({
+    required this.prefixCode,
+    required this.name,
+    required this.suffixCode,
+  });
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ms_class &&
+      other is MsClass &&
           prefixCode == other.prefixCode &&
           name == other.name &&
           suffixCode == other.suffixCode;
@@ -37,10 +39,10 @@ class ms_class {
 }
 
 class MsSingleMultiSelector extends StatefulWidget {
-  final List<ms_class> items;
+  final List<MsClass> items;
   final bool multiSelect;
-  final void Function(ms_class)? onChangedSingle;
-  final void Function(List<ms_class>)? onChangedMulti;
+  final void Function(MsClass)? onChangedSingle;
+  final void Function(List<MsClass>)? onChangedMulti;
   final void Function()? onSubmit;
   final MsController? controller;
   final TextStyle? textStyle;
@@ -52,8 +54,8 @@ class MsSingleMultiSelector extends StatefulWidget {
   final Icon? prefixIcon;
   final Color? highlightColor;
   final Color? checkboxActiveColor;
-final double? msFieldwidth;
-final double? msFieldheight;
+  final double? msFieldwidth;
+  final double? msFieldheight;
 
   const MsSingleMultiSelector({
     super.key,
@@ -71,7 +73,9 @@ final double? msFieldheight;
     this.hintText,
     this.prefixIcon,
     this.highlightColor,
-    this.checkboxActiveColor, this.msFieldwidth, this.msFieldheight,
+    this.checkboxActiveColor,
+    this.msFieldwidth,
+    this.msFieldheight,
   });
 
   @override
@@ -79,47 +83,45 @@ final double? msFieldheight;
 }
 
 class _MsSingleMultiSelectorState extends State<MsSingleMultiSelector> {
-  
-  ms_class? selectedCity;
-  List<ms_class> selectedCities = [];
+  MsClass? selectedCity;
+  List<MsClass> selectedCities = [];
 
   FocusNode get _focusNode => widget.controller?.focusNode ?? FocusNode();
 
-Future<void> _openDialog(String searchQuery) async {
-  final result = await _showCityDialog(
-    context: context,
-    items: widget.items,
-    multiSelect: widget.multiSelect,
-    searchTextStyle: widget.searchTextStyle,
-    prefixCodeTextStyle: widget.prefixCodeTextStyle,
-    listNameTextStyle: widget.listNameTextStyle,
-    suffixCodeTextStyle: widget.suffixCodeTextStyle,
-    hintText: widget.hintText,
-    prefixIcon: widget.prefixIcon,
-    initialSelected: selectedCities,
-    highlightColor: widget.highlightColor,
-    checkboxActiveColor: widget.checkboxActiveColor,
-    initialSearchQuery: searchQuery, // 👈 Add this parameter to your dialog
-  );
+  Future<void> _openDialog(String searchQuery) async {
+    final result = await _showCityDialog(
+      context: context,
+      items: widget.items,
+      multiSelect: widget.multiSelect,
+      searchTextStyle: widget.searchTextStyle,
+      prefixCodeTextStyle: widget.prefixCodeTextStyle,
+      listNameTextStyle: widget.listNameTextStyle,
+      suffixCodeTextStyle: widget.suffixCodeTextStyle,
+      hintText: widget.hintText,
+      prefixIcon: widget.prefixIcon,
+      initialSelected: selectedCities,
+      highlightColor: widget.highlightColor,
+      checkboxActiveColor: widget.checkboxActiveColor,
+      initialSearchQuery: searchQuery, // 👈 Add this parameter to your dialog
+    );
 
-  if (result != null) {
-    if (widget.multiSelect && result is List<ms_class>) {
-      setState(() {
-        selectedCities = result;
-      });
-       widget.controller?.selectedMulti = result; // 👈 Sync with controller
-      widget.onChangedMulti?.call(result);
-    } else if (result is ms_class) {
-      setState(() {
-        selectedCity = result;
-      });
-      widget.controller?.selectedSingle = result; // 👈 Sync with controller
-      widget.onChangedSingle?.call(result);
+    if (result != null) {
+      if (widget.multiSelect && result is List<MsClass>) {
+        setState(() {
+          selectedCities = result;
+        });
+        widget.controller?.selectedMulti = result; // 👈 Sync with controller
+        widget.onChangedMulti?.call(result);
+      } else if (result is MsClass) {
+        setState(() {
+          selectedCity = result;
+        });
+        widget.controller?.selectedSingle = result; // 👈 Sync with controller
+        widget.onChangedSingle?.call(result);
+      }
+      widget.onSubmit?.call();
     }
-    widget.onSubmit?.call();
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -131,51 +133,53 @@ Future<void> _openDialog(String searchQuery) async {
         ? ''
         : '${selectedCity!.prefixCode} - ${selectedCity!.name} (${selectedCity!.suffixCode})';
     return SizedBox(
-    width: widget.msFieldwidth,
-    height: widget.msFieldheight,
-    child: TextField(
-      readOnly: false,
-         style: widget.searchTextStyle ?? const TextStyle(fontSize: 16),
-      focusNode: _focusNode,
-      onSubmitted: (value) {
-        _openDialog(value);
-      },
-      decoration: InputDecoration(
-        prefixIcon: widget.prefixIcon ?? const Icon(Icons.location_city),
-        suffixIcon: IconButton(
-          onPressed: () {
-            _openDialog('');
-          },
-          icon: const Icon(Icons.menu_open),
+      width: widget.msFieldwidth,
+      height: widget.msFieldheight,
+      child: TextField(
+        readOnly: false,
+        style: widget.searchTextStyle ?? const TextStyle(fontSize: 16),
+        focusNode: _focusNode,
+        onSubmitted: (value) {
+          _openDialog(value);
+        },
+        decoration: InputDecoration(
+          prefixIcon: widget.prefixIcon ?? const Icon(Icons.location_city),
+          suffixIcon: IconButton(
+            onPressed: () {
+              _openDialog('');
+            },
+            icon: const Icon(Icons.menu_open),
+          ),
+          hintText: widget.hintText ?? 'Select a item',
+          border: OutlineInputBorder(
+            // 👈 Box-style border
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
+            ),
+          ),
+          filled: true,
+          fillColor: Colors.white, // Optional: background color
         ),
-        hintText: widget.hintText ?? 'Select a item',
-         border: OutlineInputBorder( // 👈 Box-style border
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: Colors.grey),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: Colors.grey),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
-    ),
-    filled: true,
-    fillColor: Colors.white, // Optional: background color
-
+        controller: TextEditingController(text: displayText),
+        //style: widget.textStyle ?? const TextStyle(fontSize: 16),
       ),
-      controller: TextEditingController(text: displayText),
-      //style: widget.textStyle ?? const TextStyle(fontSize: 16),
-    ),
-  );
-
+    );
   }
 }
 
 Future<dynamic> _showCityDialog({
   required BuildContext context,
-  required List<ms_class> items,
+  required List<MsClass> items,
   bool multiSelect = false,
   TextStyle? searchTextStyle,
   TextStyle? prefixCodeTextStyle,
@@ -183,19 +187,21 @@ Future<dynamic> _showCityDialog({
   TextStyle? suffixCodeTextStyle,
   String? hintText,
   Icon? prefixIcon,
-  List<ms_class>? initialSelected,
+  List<MsClass>? initialSelected,
   Color? highlightColor,
-  Color? checkboxActiveColor, 
+  Color? checkboxActiveColor,
   required String initialSearchQuery,
 }) async {
-  final TextEditingController searchCtrl = TextEditingController(text: initialSearchQuery);
+  final TextEditingController searchCtrl = TextEditingController(
+    text: initialSearchQuery,
+  );
   final FocusNode searchFocusNode = FocusNode();
-  List<ms_class> filtered = List.from(items);
-  bool _initialized = false;
+  List<MsClass> filtered = List.from(items);
+  bool initialized = false;
   int highlighted = 0;
   final ScrollController listController = ScrollController();
   const double itemHeight = 50.0;
-  final Set<ms_class> selectedCities = initialSelected?.toSet() ?? {};
+  final Set<MsClass> selectedCities = initialSelected?.toSet() ?? {};
 
   Future<void> scrollToHighlighted() async {
     if (!listController.hasClients) return;
@@ -216,7 +222,6 @@ Future<dynamic> _showCityDialog({
   return showDialog<dynamic>(
     context: context,
     builder: (outerContext) {
-      
       WidgetsBinding.instance.addPostFrameCallback((_) {
         try {
           FocusScope.of(outerContext).requestFocus(searchFocusNode);
@@ -225,8 +230,6 @@ Future<dynamic> _showCityDialog({
 
       return StatefulBuilder(
         builder: (innerContext, setState) {
-            
-
           void applyFilter(String q) {
             final ql = q.toLowerCase();
             filtered = items
@@ -241,12 +244,12 @@ Future<dynamic> _showCityDialog({
             scrollToHighlighted();
           }
 
-    if (!_initialized) {
-      applyFilter(initialSearchQuery);
-      _initialized = true;
-    }
+          if (!initialized) {
+            applyFilter(initialSearchQuery);
+            initialized = true;
+          }
 
-          void toggleSelection(ms_class mdData) {
+          void toggleSelection(MsClass mdData) {
             setState(() {
               if (selectedCities.contains(mdData)) {
                 selectedCities.remove(mdData);
@@ -256,17 +259,15 @@ Future<dynamic> _showCityDialog({
             });
           }
 
-         
-
           final double dialogWidth = MediaQuery.of(outerContext).size.width / 2;
           final double dialogHeight =
               MediaQuery.of(outerContext).size.height / 2;
 
           return Dialog(
-            child: RawKeyboardListener(
+            child: KeyboardListener(
               focusNode: FocusNode(),
               autofocus: true,
-              onKey: (RawKeyEvent event) {
+              onKeyEvent: (KeyEvent event) {
                 if (event is! KeyDownEvent) return;
                 final key = event.logicalKey;
                 if (key == LogicalKeyboardKey.arrowDown) {
@@ -289,7 +290,8 @@ Future<dynamic> _showCityDialog({
                     });
                     scrollToHighlighted();
                   }
-                } else if (key == LogicalKeyboardKey.enter || key == LogicalKeyboardKey.numpadEnter) {
+                } else if (key == LogicalKeyboardKey.enter ||
+                    key == LogicalKeyboardKey.numpadEnter) {
                   if (highlighted >= 0 && highlighted < filtered.length) {
                     final mdData = filtered[highlighted];
                     if (multiSelect) {
@@ -366,7 +368,8 @@ Future<dynamic> _showCityDialog({
                                 child: Text('No results'),
                               ),
                             )
-                          : ListView.builder(padding: EdgeInsets.zero,
+                          : ListView.builder(
+                              padding: EdgeInsets.zero,
                               controller: listController,
                               itemExtent: itemHeight,
                               itemCount: filtered.length,
@@ -516,7 +519,8 @@ Future<dynamic> _showCityDialog({
                                                                 width: 4,
                                                               ),
                                                               Text(
-                                                                mdData.prefixCode,
+                                                                mdData
+                                                                    .prefixCode,
                                                                 style: const TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
@@ -596,5 +600,4 @@ Future<dynamic> _showCityDialog({
       );
     },
   );
-
 }

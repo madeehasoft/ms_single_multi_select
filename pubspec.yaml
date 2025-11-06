@@ -1,7 +1,8 @@
 name: ms_single_multi_select
 description: "A new Flutter multi selector project."
-version: 0.0.1
-repository: https://github.com/madeehasoft/ms_single_multi_select
+version: 0.0.3
+homepage: https://github.com/yourusername/ms_single_multi_select
+repository: https://github.com/yourusername/ms_single_multi_select
 
 environment:
   sdk: ^3.9.2
@@ -16,6 +17,10 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
 
+linter:
+  rules:
+    - public_member_api_docs
+    
 topics: 
   - multi-select
   - single-select

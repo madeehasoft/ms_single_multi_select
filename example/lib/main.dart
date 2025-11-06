@@ -27,14 +27,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final MsController multyController = MsController();
   final MsController singleController = MsController();
   FocusNode useridFTB = FocusNode();
-  List<ms_class> cities = [];
+  List<MsClass> cities = [];
 
   @override
   void initState() {
     super.initState();
     cities = List.generate(
       500,
-      (i) => ms_class(
+      (i) => MsClass(
         prefixCode: 'Prefix Code ${i.toString().padLeft(3, '0')}',
         name: 'City Name $i',
         suffixCode: 'Suffix Code $i',
@@ -141,18 +141,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
               ElevatedButton(
                 onPressed: () {
-                  if (multyController.isSelected || singleController.isSelected) {
-                   if (!singleController.isSelected) {
+                  if (multyController.isSelected ||
+                      singleController.isSelected) {
+                    if (!singleController.isSelected) {
                       _showToast(
-                      context,
-                      'Selected items: ${multyController.selectedMulti.map((c) => c.name).join(', ')}',
-                    );
-                   }else{
-                    _showToast(
-                      context,
-                      'Selected item: ${singleController.selectedSingle?.name ?? 'None'}',
-                    );
-                   }
+                        context,
+                        'Selected items: ${multyController.selectedMulti.map((c) => c.name).join(', ')}',
+                      );
+                    } else {
+                      _showToast(
+                        context,
+                        'Selected item: ${singleController.selectedSingle?.name ?? 'None'}',
+                      );
+                    }
                   } else {
                     _showToast(context, 'No selection made');
                   }
