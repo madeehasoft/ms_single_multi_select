@@ -24,8 +24,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ms_controller multyController = ms_controller();
-  final ms_controller singleController = ms_controller();
+  final MsController multyController = MsController();
+  final MsController singleController = MsController();
   FocusNode useridFTB = FocusNode();
   List<ms_class> cities = [];
 

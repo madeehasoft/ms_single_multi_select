@@ -17,18 +17,12 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 topics: 
-  - flutter
   - multi-select
   - single-select
   - dropdown
   - selector
   - list-item-finder
-  - list-item-searcher
-  - search-item
-  - item-searcher
-  - item-finder
-  - list-selector
-  - multi-item-selector 
+  
 license: MIT
 
 
