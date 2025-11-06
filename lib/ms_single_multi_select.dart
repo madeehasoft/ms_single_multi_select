@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ms_controller {
+class MsController {
   final FocusNode focusNode = FocusNode();
 
   ms_class? selectedSingle;
@@ -42,7 +42,7 @@ class MsSingleMultiSelector extends StatefulWidget {
   final void Function(ms_class)? onChangedSingle;
   final void Function(List<ms_class>)? onChangedMulti;
   final void Function()? onSubmit;
-  final ms_controller? controller;
+  final MsController? controller;
   final TextStyle? textStyle;
   final TextStyle? searchTextStyle;
   final TextStyle? prefixCodeTextStyle;
@@ -256,17 +256,7 @@ Future<dynamic> _showCityDialog({
             });
           }
 
-          void selectAll() {
-            setState(() {
-              selectedCities.addAll(filtered);
-            });
-          }
-
-          void clearAll() {
-            setState(() {
-              selectedCities.clear();
-            });
-          }
+         
 
           final double dialogWidth = MediaQuery.of(outerContext).size.width / 2;
           final double dialogHeight =
@@ -277,7 +267,7 @@ Future<dynamic> _showCityDialog({
               focusNode: FocusNode(),
               autofocus: true,
               onKey: (RawKeyEvent event) {
-                if (event is! RawKeyDownEvent) return;
+                if (event is! KeyDownEvent) return;
                 final key = event.logicalKey;
                 if (key == LogicalKeyboardKey.arrowDown) {
                   if (filtered.isNotEmpty) {
