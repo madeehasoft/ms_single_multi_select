@@ -1,5 +1,5 @@
 name: ms_single_multi_select
-description: "A new Flutter multi selector project."
+description: "A new madeehasoft multi selector project."
 version: 0.0.5
 homepage: https://github.com/madeehasoft/ms_single_multi_select
 repository: https://github.com/madeehasoft/ms_single_multi_select
@@ -16,6 +16,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
+platform:
+  android: 
+    minSdkVersion: 21
+  ios: 
+    minSdkVersion: 9.0
+  web:
+    renderer: html  
+  macos:
+    minSdkVersion: 10.11
 
 linter:
   rules:
@@ -38,9 +48,10 @@ license: MIT
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+ assets:
+     - images/1.png
+     - images/2.png
+     - images/3.png
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
