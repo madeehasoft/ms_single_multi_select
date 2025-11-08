@@ -1,13 +1,6 @@
-/// A Flutter package for single and multi-select dropdowns with search, styling, and focus control.
-///
-/// Provides the `MsSingleMultiSelector` widget and supporting classes for building
-/// customizable dropdown selectors in forms, filters, and dynamic lists.
-library ms_single_multi_select;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
 
 /// A controller to manage focus and selection state for the multi-select widget.
 class MsController {
@@ -22,7 +15,6 @@ class MsController {
 
   bool get isSelected => selectedSingle != null || selectedMulti.isNotEmpty;
 }
-
 
 /// Represents a selectable item used in the single or multi-select dropdown.
 ///
@@ -56,8 +48,7 @@ class MsClass {
 
   /// Generates a hash code based on [prefixCode], [name], and [suffixCode].
   @override
-  int get hashCode =>
-      prefixCode.hashCode ^ name.hashCode ^ suffixCode.hashCode;
+  int get hashCode => prefixCode.hashCode ^ name.hashCode ^ suffixCode.hashCode;
 }
 
 class MsSingleMultiSelector extends StatefulWidget {

@@ -53,24 +53,29 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-Future<void> loadCitiesFromJson() async {
-  final String response = await rootBundle.loadString('assets/cities.json');
-  final List<dynamic> data = json.decode(response);
-  setState(() {
-    cities = data.map((item) => MsClass(
-      prefixCode: item['prefixCode'],
-      name: item['name'],
-      suffixCode: item['suffixCode'],
-    )).toList();
-  });
-}
-
+  Future<void> loadCitiesFromJson() async {
+    final String response = await rootBundle.loadString('assets/cities.json');
+    final List<dynamic> data = json.decode(response);
+    setState(() {
+      cities = data
+          .map(
+            (item) => MsClass(
+              prefixCode: item['prefixCode'],
+              name: item['name'],
+              suffixCode: item['suffixCode'],
+            ),
+          )
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Madeehasoft® Single Or Multiple Drop-Down Selector Example'),
+        title: const Text(
+          'Madeehasoft® Single Or Multiple Drop-Down Selector Example',
+        ),
       ),
       body: Center(
         child: Padding(
@@ -103,11 +108,7 @@ Future<void> loadCitiesFromJson() async {
                 },
                 onChangedSingle: (selected) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: ${selected.name}',
-                      ),
-                    ),
+                    SnackBar(content: Text('Selected: ${selected.name}')),
                   );
                 },
               ),
