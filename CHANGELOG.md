@@ -1,3 +1,31 @@
+## [0.0.11] - 2025-11-08
+### Added
+- Initial public release with single and multi-select widgets.
+- Supports customization, validation, and dynamic item rendering.
+
+### Fixed
+- Dart formatter compliance.
+- Removed unnecessary `library` declaration.
+
+### Improved
+- README formatting and example clarity.
+- SDK compatibility notes.
+
+## [0.0.10] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
+## [0.0.9] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
+## [0.0.8] - 2025-11-06
+### Fixed
+- Addressed pub.dev validation issues.
+- Improved package description and metadata.
+
 ## [0.0.7] - 2025-11-06
 ### Fixed
 - Addressed pub.dev validation issues.

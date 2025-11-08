@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -140,11 +139,11 @@ class _MsSingleMultiSelectorState extends State<MsSingleMultiSelector> {
   Widget build(BuildContext context) {
     final displayText = widget.multiSelect
         ? selectedCities
-              .map((c) => '${c.prefixCode} - ${c.name} (${c.suffixCode})')
-              .join(', ')
+            .map((c) => '${c.prefixCode} - ${c.name} (${c.suffixCode})')
+            .join(', ')
         : selectedCity == null
-        ? ''
-        : '${selectedCity!.prefixCode} - ${selectedCity!.name} (${selectedCity!.suffixCode})';
+            ? ''
+            : '${selectedCity!.prefixCode} - ${selectedCity!.name} (${selectedCity!.suffixCode})';
     return SizedBox(
       width: widget.msFieldwidth,
       height: widget.msFieldheight,
@@ -335,8 +334,7 @@ Future<dynamic> _showCityDialog({
                               hintText ?? 'Search by name or prefixCode...',
                           suffixIcon: multiSelect
                               ? Checkbox(
-                                  value:
-                                      selectedCities.length ==
+                                  value: selectedCities.length ==
                                           filtered.length &&
                                       filtered.isNotEmpty,
                                   onChanged: (checked) {
@@ -350,8 +348,7 @@ Future<dynamic> _showCityDialog({
                                       }
                                     });
                                   },
-                                  activeColor:
-                                      checkboxActiveColor ??
+                                  activeColor: checkboxActiveColor ??
                                       Theme.of(context).colorScheme.primary,
                                 )
                               : null,
@@ -404,9 +401,8 @@ Future<dynamic> _showCityDialog({
                                   child: Container(
                                     color: isHighlighted
                                         ? (highlightColor ??
-                                              Colors.blue.shade100)
+                                            Colors.blue.shade100)
                                         : null,
-
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 12,
                                       horizontal: 12,
@@ -421,8 +417,7 @@ Future<dynamic> _showCityDialog({
                                                 ? Icons.check_box
                                                 : Icons.check_box_outline_blank,
                                             //color: isSelected ? Colors.blue : Colors.grey,
-                                            color:
-                                                checkboxActiveColor ??
+                                            color: checkboxActiveColor ??
                                                 Theme.of(
                                                   context,
                                                 ).colorScheme.primary,
@@ -431,8 +426,7 @@ Future<dynamic> _showCityDialog({
                                           const SizedBox(width: 8),
                                         Text(
                                           mdData.prefixCode,
-                                          style:
-                                              prefixCodeTextStyle ??
+                                          style: prefixCodeTextStyle ??
                                               const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -440,8 +434,7 @@ Future<dynamic> _showCityDialog({
                                         const SizedBox(width: 8),
                                         Text(
                                           mdData.name,
-                                          style:
-                                              listNameTextStyle ??
+                                          style: listNameTextStyle ??
                                               const TextStyle(),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
@@ -449,8 +442,7 @@ Future<dynamic> _showCityDialog({
                                         const SizedBox(width: 8),
                                         Text(
                                           mdData.suffixCode,
-                                          style:
-                                              suffixCodeTextStyle ??
+                                          style: suffixCodeTextStyle ??
                                               const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -488,8 +480,8 @@ Future<dynamic> _showCityDialog({
                                   builder: (_) {
                                     return StatefulBuilder(
                                       builder: (context, setState) {
-                                        final selectedList = selectedCities
-                                            .toList();
+                                        final selectedList =
+                                            selectedCities.toList();
                                         return AlertDialog(
                                           title: const Text('Selected Items'),
                                           content: SizedBox(
@@ -506,15 +498,17 @@ Future<dynamic> _showCityDialog({
                                                     child: ListView.builder(
                                                       itemCount:
                                                           selectedList.length,
-                                                      itemBuilder: (context, index) {
+                                                      itemBuilder:
+                                                          (context, index) {
                                                         final mdData =
                                                             selectedList[index];
                                                         return Padding(
                                                           padding:
-                                                              const EdgeInsets.symmetric(
-                                                                vertical: 4.0,
-                                                                horizontal: 4.0,
-                                                              ),
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                            vertical: 4.0,
+                                                            horizontal: 4.0,
+                                                          ),
                                                           child: Row(
                                                             children: [
                                                               Checkbox(
@@ -523,8 +517,8 @@ Future<dynamic> _showCityDialog({
                                                                   setState(() {
                                                                     selectedCities
                                                                         .remove(
-                                                                          mdData,
-                                                                        );
+                                                                      mdData,
+                                                                    );
                                                                   });
                                                                 },
                                                               ),
@@ -534,7 +528,8 @@ Future<dynamic> _showCityDialog({
                                                               Text(
                                                                 mdData
                                                                     .prefixCode,
-                                                                style: const TextStyle(
+                                                                style:
+                                                                    const TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,

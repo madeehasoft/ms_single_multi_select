@@ -6,7 +6,8 @@ A customizable Flutter widget for single and multi-select dropdowns with searcha
 
 - 🔍 Searchable dropdowns
 - ✅ Single and multi-select modes
-- 🎯 - Keyboard and touch navigation support
+- 🎯 Keyboard and touch navigation support
+- 🎯 Focusable widget
 - 🎨 Fully themeable and responsive
 
 ## 📸 Preview
@@ -30,4 +31,4 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ms_single_multi_select: ^0.0.10
+  ms_single_multi_select: ^0.0.11
