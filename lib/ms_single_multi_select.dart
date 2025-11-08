@@ -139,11 +139,11 @@ class _MsSingleMultiSelectorState extends State<MsSingleMultiSelector> {
   Widget build(BuildContext context) {
     final displayText = widget.multiSelect
         ? selectedCities
-            .map((c) => '${c.prefixCode} - ${c.name} (${c.suffixCode})')
+            .map((c) => '${c.prefixCode}${c.name}${c.suffixCode}')
             .join(', ')
         : selectedCity == null
             ? ''
-            : '${selectedCity!.prefixCode} - ${selectedCity!.name} (${selectedCity!.suffixCode})';
+            : '${selectedCity!.prefixCode}${selectedCity!.name}${selectedCity!.suffixCode}';
     return SizedBox(
       width: widget.msFieldwidth,
       height: widget.msFieldheight,
