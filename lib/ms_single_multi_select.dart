@@ -1,5 +1,13 @@
+/// A Flutter package for single and multi-select dropdowns with search, styling, and focus control.
+///
+/// Provides the `MsSingleMultiSelector` widget and supporting classes for building
+/// customizable dropdown selectors in forms, filters, and dynamic lists.
+library ms_single_multi_select;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+
 
 /// A controller to manage focus and selection state for the multi-select widget.
 class MsController {
@@ -15,17 +23,29 @@ class MsController {
   bool get isSelected => selectedSingle != null || selectedMulti.isNotEmpty;
 }
 
+
+/// Represents a selectable item used in the single or multi-select dropdown.
+///
+/// Each item includes a [prefixCode], [name], and [suffixCode] to support
+/// flexible display and filtering in the UI.
 class MsClass {
+  /// The prefix code shown before the item name.
   final String prefixCode;
+
+  /// The main name of the item.
   final String name;
+
+  /// The suffix code shown after the item name.
   final String suffixCode;
 
-  MsClass({
+  /// Creates a new [MsClass] with the given [prefixCode], [name], and [suffixCode].
+  const MsClass({
     required this.prefixCode,
     required this.name,
     required this.suffixCode,
   });
 
+  /// Compares two [MsClass] instances for equality based on their fields.
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -34,8 +54,10 @@ class MsClass {
           name == other.name &&
           suffixCode == other.suffixCode;
 
+  /// Generates a hash code based on [prefixCode], [name], and [suffixCode].
   @override
-  int get hashCode => prefixCode.hashCode ^ name.hashCode ^ suffixCode.hashCode;
+  int get hashCode =>
+      prefixCode.hashCode ^ name.hashCode ^ suffixCode.hashCode;
 }
 
 class MsSingleMultiSelector extends StatefulWidget {

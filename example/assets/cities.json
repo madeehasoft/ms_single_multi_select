@@ -1,0 +1,17 @@
+[
+  {
+    "prefixCode": "Prefix Code 001",
+    "name": "Dhaka",
+    "suffixCode": "Suffix Code 001"
+  },
+  {
+    "prefixCode": "Prefix Code 002",
+    "name": "Khulna",
+    "suffixCode": "Suffix Code 002"
+  },
+  {
+    "prefixCode": "Prefix Code 003",
+    "name": "Chittagong",
+    "suffixCode": "Suffix Code 003"
+  }
+]

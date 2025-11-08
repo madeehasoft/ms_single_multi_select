@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ms_single_multi_select/ms_single_multi_select.dart';
 
 void main() => runApp(const MyApp());
@@ -9,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'MS Dropdown Demo',
+      title: 'Madeehasoft® Dropdown Demo',
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -32,14 +35,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    cities = List.generate(
-      500,
-      (i) => MsClass(
-        prefixCode: 'Prefix Code ${i.toString().padLeft(3, '0')}',
-        name: 'City Name $i',
-        suffixCode: 'Suffix Code $i',
-      ),
-    );
+    // cities = List.generate(
+    //   500,
+    //   (i) => MsClass(
+    //     prefixCode: 'Prefix Code ${i.toString().padLeft(3, '0')}',
+    //     name: 'City Name $i',
+    //     suffixCode: 'Suffix Code $i',
+    //   ),
+    // );
+    loadCitiesFromJson();
   }
 
   @override
@@ -49,11 +53,24 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+Future<void> loadCitiesFromJson() async {
+  final String response = await rootBundle.loadString('assets/cities.json');
+  final List<dynamic> data = json.decode(response);
+  setState(() {
+    cities = data.map((item) => MsClass(
+      prefixCode: item['prefixCode'],
+      name: item['name'],
+      suffixCode: item['suffixCode'],
+    )).toList();
+  });
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Madeehasoft® Single Or Multiple Selector Example'),
+        title: const Text('Madeehasoft® Single Or Multiple Drop-Down Selector Example'),
       ),
       body: Center(
         child: Padding(
@@ -84,11 +101,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   //useridFTB.requestFocus();
                   multyController.requestFocus();
                 },
-                onChangedMulti: (selected) {
+                onChangedSingle: (selected) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: ${selected.map((c) => c.name).join(', ')}',
+                        'Selected: ${selected.name}',
                       ),
                     ),
                   );
@@ -100,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               MsSingleMultiSelector(
                 hintText: "Select Multiple Cities",
                 searchTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                msFieldwidth: 300,
+                msFieldwidth: 400,
                 msFieldheight: 45,
                 prefixIcon: Icon(Icons.search),
                 items: cities,
