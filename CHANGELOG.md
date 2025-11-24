@@ -1,3 +1,8 @@
+## [0.0.12] - 2025-11-24
+
+- Initial public release of `ms_single_multi_select`
+- Publish With A Verified Publisher
+
 ## [0.0.11] - 2025-11-08
 ### Added
 - Initial public release with single and multi-select widgets.
